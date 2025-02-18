@@ -34,10 +34,10 @@ class GitlabIssueHandler(IssueHandlerInterface):
 
     def get_base_url(self):
         project_path = quote(f'{self.owner}/{self.repo}', safe="")
-        return f'https://gitlab.com/api/v4/projects/{project_path}'
+        return f'http://gitlab.software.cambricon.com/api/v4/projects/{project_path}'
 
     def get_authorize_url(self):
-        return f'https://{self.username}:{self.token}@gitlab.com/'
+        return f'https://{self.username}:{self.token}@gitlab.software.cambricon.com/'
 
     def get_branch_url(self, branch_name: str):
         return self.get_base_url() + f'/repository/branches/{branch_name}'
@@ -49,13 +49,13 @@ class GitlabIssueHandler(IssueHandlerInterface):
         username_and_token = self.token
         if self.username:
             username_and_token = f'{self.username}:{self.token}'
-        return f'https://{username_and_token}@gitlab.com/{self.owner}/{self.repo}.git'
+        return f'https://{username_and_token}@gitlab.software.cambricon.com/{self.owner}/{self.repo}.git'
 
     def get_graphql_url(self):
-        return 'https://gitlab.com/api/graphql'
+        return 'http://gitlab.software.cambricon.com/api/graphql'
 
     def get_compare_url(self, branch_name: str):
-        return f'https://gitlab.com/{self.owner}/{self.repo}/-/compare/{self.get_default_branch_name()}...{branch_name}'
+        return f'http://gitlab.software.cambricon.com/{self.owner}/{self.repo}/-/compare/{self.get_default_branch_name()}...{branch_name}'
 
     def get_converted_issues(
         self, issue_numbers: list[int] | None = None, comment_id: int | None = None
@@ -218,7 +218,7 @@ class GitlabIssueHandler(IssueHandlerInterface):
 
     def get_pull_url(self, pr_number: int):
         return (
-            f'https://gitlab.com/{self.owner}/{self.repo}/-/merge_requests/{pr_number}'
+            f'http://gitlab.software.cambricon.com/{self.owner}/{self.repo}/-/merge_requests/{pr_number}'
         )
 
     def get_default_branch_name(self) -> str:
@@ -247,7 +247,7 @@ class GitlabIssueHandler(IssueHandlerInterface):
 
     def request_reviewers(self, reviewer: str, pr_number: int):
         response = requests.get(
-            f'https://gitlab.com/api/v4/users?username={reviewer}',
+            f'http://gitlab.software.cambricon.com/api/v4/users?username={reviewer}',
             headers=self.headers,
         )
         response.raise_for_status()

@@ -44,7 +44,7 @@ def identify_token(token: str) -> Platform:
     except requests.RequestException as e:
         print(f'Error connecting to GitHub API: {e}')
 
-    gitlab_url = 'https://gitlab.com/api/v4/user'
+    gitlab_url = 'http://gitlab.software.cambricon.com/api/v4/user'
     gitlab_headers = {'Authorization': f'Bearer {token}'}
 
     try:
